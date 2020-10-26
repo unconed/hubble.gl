@@ -20,4 +20,4 @@
 export {default as BasicControls} from './basic-controls';
 export {default as EncoderDropdown} from './encoder-dropdown';
 export {default as ResolutionGuide} from './resolution-guide';
-export {ExportVideoModal, ExportVideoPanelContainer} from './export-video'
+export {ExportVideoModal, ExportVideoPanelContainer} from './export-video';
