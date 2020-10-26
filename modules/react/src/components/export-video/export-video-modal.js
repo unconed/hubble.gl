@@ -20,9 +20,9 @@
 
 /* eslint-disable no-invalid-this */
 import React, {Component, createRef} from 'react';
+import Modal from 'react-modal';
 import styled, {withTheme} from 'styled-components';
 import {createSelector} from 'reselect';
-import Modal from 'react-modal';
 import {DIMENSIONS} from 'kepler.gl';
 
 const ModalContainer = styled.div`

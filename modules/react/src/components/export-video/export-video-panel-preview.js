@@ -19,15 +19,11 @@
 // THE SOFTWARE.
 
 import React, {Component} from 'react';
-
-// Map Component
 import DeckGL from '@deck.gl/react';
-
-import {layerConfigChange} from 'kepler.gl/actions';
-
 import {MapView, OrthographicView} from '@deck.gl/core';
 import {TileLayer} from '@deck.gl/geo-layers';
 import {BitmapLayer} from '@deck.gl/layers';
+import {layerConfigChange} from 'kepler.gl/actions';
 
 export class ExportVideoPanelPreview extends Component {
   constructor(props) {

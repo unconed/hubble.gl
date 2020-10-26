@@ -21,7 +21,6 @@
 import React from 'react';
 import styled, {withTheme} from 'styled-components';
 import {IntlProvider} from 'react-intl';
-
 import {messages} from 'kepler.gl/localization';
 import {Button, Icons} from 'kepler.gl/components';
 
