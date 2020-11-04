@@ -45,29 +45,9 @@ import {
 //     .toString()}`;
 // }
 
-/* function setResolution(resolution){
-  if(resolution === 'Good (540p)'){
-    adapter.scene.width = 960;
-    adapter.scene.height = 540;
-  }else if(resolution === 'High (720p)'){
-    adapter.scene.width = 1280;
-    adapter.scene.height = 720;
-  }else if(resolution === 'Highest (1080p)'){
-    adapter.scene.width = 1920;
-    adapter.scene.height = 1080;
-  }
-}*/
-
-// TODO:
-
-// Changes Timestamp function
-// Camera function (preset keyframes) DONE
-// File Name function DONE
-// MediaType function DONE
-// Quality function
-// Set Duration function
-// Calculate File Size function
-// Render Function DONE
+// TODO Couldn't figure out how to incorporate these into state. Would be calling state property within this.state?
+// let currentWidth = 1280
+// let currentHeight = 720
 
 export class ExportVideoPanelContainer extends Component {
   static defaultProps = {
@@ -80,7 +60,7 @@ export class ExportVideoPanelContainer extends Component {
     this.setMediaTypeState = this.setMediaTypeState.bind(this);
     this.setCameraPreset = this.setCameraPreset.bind(this);
     this.setFileName = this.setFileName.bind(this);
-    // this.setQuality = this.setQuality.bind(this);
+    this.setQuality = this.setQuality.bind(this);
     this.getCameraKeyframes = this.getCameraKeyframes.bind(this);
     this.getDeckScene = this.getDeckScene.bind(this);
     this.onPreviewVideo = this.onPreviewVideo.bind(this);
@@ -90,19 +70,35 @@ export class ExportVideoPanelContainer extends Component {
       mediaType: 'GIF',
       cameraPreset: 'None',
       fileName: 'Video Name',
-      //  quality: "High (720p)",
+      quality: 'High (720p)',
       viewState: this.props.mapData.mapState,
+      currentWidth: 1280,
+      currentHeight: 720,
       durationMs: 1000,
       encoderSettings: {
         framerate: 30,
         webm: {
+          // TODO width/height not in WEBMEncoder
           quality: 0.8
         },
         jpeg: {
+          // TODO width/height not in JPEGEncoder
           quality: 0.8
         },
         gif: {
-          sampleInterval: 1000
+          sampleInterval: 1000,
+          get width() {
+            return this.currentWidth;
+          },
+          set width(width) {
+            width = this.currentWidth;
+          },
+          get height() {
+            return this.currentHeight;
+          },
+          set height(height) {
+            height = this.currentHeight;
+          }
         },
         filename: 'kepler.gl'
       },
@@ -161,12 +157,26 @@ export class ExportVideoPanelContainer extends Component {
     });
     // setFileNameDeckAdapter(name.target.value);
   }
-  /* setQuality(resolution){
+  setQuality(resolution) {
+    // const {adapter, encoderSettings} = this.state
     this.setState({
       quality: resolution
     });
-    setResolution(resolution);
-  }*/
+    if (resolution === 'Good (540p)') {
+      this.setState({currentWidth: 960});
+      this.setState({currentHeight: 540});
+    } else if (resolution === 'High (720p)') {
+      this.setState({currentWidth: 1280});
+      this.setState({currentHeight: 720});
+    } else if (resolution === 'Highest (1080p)') {
+      this.setState({currentWidth: 1920});
+      this.setState({currentHeight: 1080});
+    }
+
+    // console.log('REACHED');
+    // console.log('this.state.encoderSettings.gif', this.state.encoderSettings.gif);
+    // console.log("currentWidth", currentWidth)
+  }
 
   onPreviewVideo() {
     const {adapter, encoderSettings} = this.state;
@@ -219,7 +229,7 @@ export class ExportVideoPanelContainer extends Component {
         setMediaTypeState={this.setMediaTypeState}
         setCameraPreset={this.setCameraPreset}
         setFileName={this.setFileName}
-        // setQuality={this.setQuality}
+        setQuality={this.setQuality}
         // Hubble Props
         exportSettings={exportSettings}
         adapter={adapter}
