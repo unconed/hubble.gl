@@ -140,52 +140,35 @@ export class ExportVideoPanelContainer extends Component {
     // setFileNameDeckAdapter(name.target.value);
   }
   setQuality(resolution) {
-    this.setState({
-      quality: resolution
-    });
+    // NOTE: resolution is string user selects ex: 'Good (540p)'\
+    const {encoderSettings} = this.state;
+
+    let newWidth = encoderSettings.gif.width;
+    let newHeight = encoderSettings.gif.height;
+
     if (resolution === 'Good (540p)') {
-      const newWidth = 960;
-      const newHeight = 540;
-      this.setState({
-        encoderSettings: {
-          ...this.state.encoderSettings,
-          gif: {
-            ...this.state.encoderSettings.gif,
-            width: newWidth,
-            height: newHeight
-          }
-          // TODO Add other encoders as needed. Not yet implemented
-        }
-      });
+      newWidth = 960;
+      newHeight = 540;
     } else if (resolution === 'High (720p)') {
-      const newWidth = 1280;
-      const newHeight = 720;
-      this.setState({
-        encoderSettings: {
-          ...this.state.encoderSettings,
-          gif: {
-            ...this.state.encoderSettings.gif,
-            width: newWidth,
-            height: newHeight
-          }
-          // TODO Add other encoders as needed. Not yet implemented
-        }
-      });
+      newWidth = 1280;
+      newHeight = 720;
     } else if (resolution === 'Highest (1080p)') {
-      const newWidth = 1920;
-      const newHeight = 1080;
-      this.setState({
-        encoderSettings: {
-          ...this.state.encoderSettings,
-          gif: {
-            ...this.state.encoderSettings.gif,
-            width: newWidth,
-            height: newHeight
-          }
-          // TODO Add other encoders as needed. Not yet implemented
-        }
-      });
+      newWidth = 1920;
+      newHeight = 1080;
     }
+
+    this.setState({
+      quality: resolution,
+      encoderSettings: {
+        ...encoderSettings,
+        gif: {
+          ...encoderSettings.gif,
+          width: newWidth,
+          height: newHeight
+        }
+        // TODO Add other encoders as needed. Not yet implemented
+      }
+    });
   }
 
   onPreviewVideo() {
