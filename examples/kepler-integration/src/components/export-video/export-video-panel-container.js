@@ -205,7 +205,7 @@ export class ExportVideoPanelContainer extends Component {
       resolution: this.state.quality
     };
 
-    const {exportSettings, adapter} = this.state;
+    const {exportSettings, adapter, durationMs, encoderSettings, mediaType} = this.state;
 
     return (
       <ExportVideoPanel
@@ -228,6 +228,10 @@ export class ExportVideoPanelContainer extends Component {
         adapter={adapter}
         handlePreviewVideo={this.onPreviewVideo}
         handleRenderVideo={this.onRenderVideo}
+        durationMs={durationMs}
+        frameRate={encoderSettings.framerate}
+        resolution={[encoderSettings.gif.width, encoderSettings.gif.height]}
+        mediaType={mediaType}
       />
     );
   }

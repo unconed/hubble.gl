@@ -57,12 +57,58 @@ const InputGrid = styled.div`
   grid-row-gap: ${DEFAULT_ROW_GAP};
 `;
 
+/**
+ * Used to convert durationMs (inherited from ExportVideoPanelContainer) to hh:mm:ss
+ * @param {number} durationMs duration of animation in milliseconds
+ * @returns {string} time in format hh:mm:ss
+ */
+function msConversion(durationMs) {
+  let seconds = parseInt((durationMs / 1000) % 60, 10);
+  let minutes = parseInt((durationMs / (1000 * 60)) % 60, 10);
+  let hours = parseInt((durationMs / (1000 * 60 * 60)) % 24, 10);
+
+  hours = hours < 10 ? `0${hours}` : hours;
+  minutes = minutes < 10 ? `0${minutes}` : minutes;
+  seconds = seconds < 10 ? `0${seconds}` : seconds;
+
+  return `${hours}:${minutes}:${seconds}`;
+}
+
+/**
+ * Estimates file size of resulting animation
+ * @param {number} frameRate frame rate of animation (set by developer)
+ * @param {array} resolution [width, height] of animation
+ * @param {number} durationMs duration of animation (set by developer)
+ * @param {string} mediaType 'GIF', 'WEBM', etc.
+ * @returns {string} size in MB
+ */
+function estimateFileSize(frameRate, resolution, durationMs, mediaType) {
+  // Based off of https://www.youtube.com/watch?v=DDcYvesZsnw for uncompressed video
+  // Formula: ((horizontal * vertical * bit depth) / (8 * 1024 * 1024 [convert to megabyte MB])) * (frame rate * time in seconds) * compression ratio
+  // Additional resource https://stackoverflow.com/questions/27559103/video-size-calculation
+  // NOTE: Bit depth is a guess because I couldn't find it. Same w/ compression ratio
+  // TODO Read resource from Imgur dev https://stackoverflow.com/questions/23920098/how-to-estimate-gif-file-size
+  if (mediaType === 'GIF') {
+    // ParseInt to turn it from float to int
+    const seconds = parseInt(durationMs / 1000, 10);
+    return `${parseInt(
+      ((resolution[0] * resolution[1] * 6) / (8 * 1024 * 1024)) * (frameRate * seconds) * 0.8,
+      10
+    )} MB`;
+  }
+  return 'Size estimation not currently available';
+}
+
 const ExportVideoPanelSettings = ({
   setMediaType,
   setCameraPreset,
   setFileName,
   setQuality,
-  settingsData
+  settingsData,
+  durationMs,
+  frameRate,
+  resolution,
+  mediaType
 }) => (
   <div>
     <StyledSection>Video Effects</StyledSection>
@@ -118,9 +164,11 @@ const ExportVideoPanelSettings = ({
     </InputGrid>
     <InputGrid style={{marginTop: DEFAULT_ROW_GAP}} rows={2} rowHeight="18px">
       <StyledLabelCell>Duration</StyledLabelCell> {/* TODO add functionality  */}
-      <StyledValueCell>00:00:30</StyledValueCell>
+      <StyledValueCell>{msConversion(durationMs)}</StyledValueCell>
       <StyledLabelCell>File Size</StyledLabelCell> {/* TODO add functionality  */}
-      <StyledValueCell>36 MB</StyledValueCell>
+      <StyledValueCell>
+        {estimateFileSize(frameRate, resolution, durationMs, mediaType)}
+      </StyledValueCell>
     </InputGrid>
   </div>
 );
