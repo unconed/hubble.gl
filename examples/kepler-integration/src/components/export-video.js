@@ -84,7 +84,9 @@ class ExportVideo extends Component {
         </ExportVideoModal>
         <h1>
           Use this button to export an animation using Hubble
-          <button onClick={this.handleOpen}>Export</button>
+          <button style={{marginLeft: '10px'}} onClick={this.handleOpen}>
+            Export
+          </button>
         </h1>
         {/* anonymous function to bind state onclick  */}
       </div>

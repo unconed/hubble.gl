@@ -20,10 +20,12 @@
 
 import React, {Component} from 'react';
 import DeckGL from '@deck.gl/react';
+
+// import {layerConfigChange} from 'kepler.gl/actions';
+
 import {MapView, OrthographicView} from '@deck.gl/core';
 import {TileLayer} from '@deck.gl/geo-layers';
 import {BitmapLayer} from '@deck.gl/layers';
-import {layerConfigChange} from 'kepler.gl/actions';
 
 export class ExportVideoPanelPreview extends Component {
   constructor(props) {
@@ -46,9 +48,9 @@ export class ExportVideoPanelPreview extends Component {
 
   _onLayerSetDomain(idx, colorDomain) {
     // TODO: this isn't dispatched to the redux store yet.
-    layerConfigChange(this.props.mapData.visState.layers[idx], {
-      colorDomain
-    });
+    // layerConfigChange(this.props.mapData.visState.layers[idx], {
+    //   colorDomain
+    // });
   }
 
   _renderLayer(overlays, idx) {

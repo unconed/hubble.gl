@@ -20,7 +20,6 @@
 
 import React from 'react';
 import styled, {withTheme} from 'styled-components';
-import {Button} from 'kepler.gl/components';
 
 import {
   DEFAULT_PADDING,
@@ -28,6 +27,7 @@ import {
   DEFAULT_BUTTON_HEIGHT,
   DEFAULT_BUTTON_WIDTH
 } from './constants';
+import {Button} from './kepler/components';
 
 const PanelFooterInner = styled.div`
   display: flex;

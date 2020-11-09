@@ -21,8 +21,9 @@
 import React from 'react';
 import styled, {withTheme} from 'styled-components';
 import {IntlProvider} from 'react-intl';
-import {messages} from 'kepler.gl/localization';
-import {Button, Icons} from 'kepler.gl/components';
+
+import {messages} from './kepler/localization';
+import {Button, Icons} from './kepler/components';
 
 import {DEFAULT_PADDING, DEFAULT_ICON_BUTTON_HEIGHT} from './constants';
 import ExportVideoPanelSettings from './export-video-panel-settings';
@@ -73,7 +74,8 @@ const PanelBody = ({
   setViewState,
   setMediaType,
   setCameraPreset,
-  setFileName /* , setQuality*/,
+  setFileName,
+  setQuality,
   settingsData
 }) => (
   <PanelBodyInner className="export-video-panel__body">
@@ -86,7 +88,8 @@ const PanelBody = ({
     <ExportVideoPanelSettings
       setMediaType={setMediaType}
       setCameraPreset={setCameraPreset}
-      setFileName={setFileName} /* , setQuality*/
+      setFileName={setFileName}
+      setQuality={setQuality}
       settingsData={settingsData}
     />
   </PanelBodyInner>
@@ -108,7 +111,7 @@ const ExportVideoPanel = ({
   setMediaTypeState,
   setCameraPreset,
   setFileName,
-  // setQuality,
+  setQuality,
   // Hubble Props
   exportSettings,
   adapter,
@@ -127,7 +130,7 @@ const ExportVideoPanel = ({
           setMediaType={setMediaTypeState}
           setCameraPreset={setCameraPreset}
           setFileName={setFileName}
-          //  setQuality={this.setQuality}
+          setQuality={setQuality}
           settingsData={settingsData}
           setViewState={setViewState}
         />

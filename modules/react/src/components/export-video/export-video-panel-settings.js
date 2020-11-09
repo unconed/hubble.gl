@@ -19,8 +19,8 @@
 // THE SOFTWARE.
 
 import React from 'react';
+import {Input, ItemSelector} from './kepler/components';
 import styled, {withTheme} from 'styled-components';
-import {Input, ItemSelector} from 'kepler.gl/components';
 
 import {DEFAULT_PADDING, DEFAULT_ROW_GAP} from './constants';
 
@@ -61,7 +61,8 @@ const InputGrid = styled.div`
 const ExportVideoPanelSettings = ({
   setMediaType,
   setCameraPreset,
-  setFileName /* , setQuality*/,
+  setFileName,
+  setQuality,
   settingsData
 }) => (
   <div>
@@ -113,7 +114,7 @@ const ExportVideoPanelSettings = ({
         options={['Good (540p)', 'High (720p)', 'Highest (1080p)']}
         multiSelect={false}
         searchable={false}
-        onChange={() => {}}
+        onChange={setQuality}
       />
     </InputGrid>
     <InputGrid style={{marginTop: DEFAULT_ROW_GAP}} rows={2} rowHeight="18px">
