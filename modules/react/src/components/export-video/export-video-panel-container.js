@@ -203,7 +203,7 @@ export class ExportVideoPanelContainer extends Component {
       resolution: this.state.quality
     };
 
-    const {exportSettings, adapter} = this.state;
+    const {adapter} = this.state;
 
     return (
       <ExportVideoPanel
@@ -222,7 +222,6 @@ export class ExportVideoPanelContainer extends Component {
         setFileName={this.setFileName}
         setQuality={this.setQuality}
         // Hubble Props
-        exportSettings={exportSettings}
         adapter={adapter}
         handlePreviewVideo={this.onPreviewVideo}
         handleRenderVideo={this.onRenderVideo}

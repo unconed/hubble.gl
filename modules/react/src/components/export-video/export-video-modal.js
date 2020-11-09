@@ -21,7 +21,7 @@
 /* eslint-disable no-invalid-this */
 import React, {Component, createRef} from 'react';
 import Modal from 'react-modal';
-import styled, {withTheme} from 'styled-components';
+import styled, {ThemeProvider} from 'styled-components';
 import {createSelector} from 'reselect';
 import {DIMENSIONS} from './kepler/constants/default-settings';
 
@@ -86,31 +86,33 @@ class ExportVideoModal extends Component {
   );
 
   render() {
-    const {isOpen, children} = this.props;
+    const {isOpen, theme, children} = this.props;
 
     const modalStyles = this.modalStylesSelector(this.props);
     return (
-      <ModalContainer className="export-video-modal" ref={this.root}>
-        {this.root.current ? (
-          <Modal
-            isOpen={isOpen}
-            style={modalStyles}
-            ariaHideApp={false}
-            parentSelector={() => {
-              return (
-                this.root.current || {
-                  removeChild: () => {},
-                  appendChild: () => {}
-                }
-              );
-            }}
-          >
-            {children}
-          </Modal>
-        ) : null}
-      </ModalContainer>
+      <ThemeProvider theme={theme}>
+        <ModalContainer className="export-video-modal" ref={this.root}>
+          {this.root.current ? (
+            <Modal
+              isOpen={isOpen}
+              style={modalStyles}
+              ariaHideApp={false}
+              parentSelector={() => {
+                return (
+                  this.root.current || {
+                    removeChild: () => {},
+                    appendChild: () => {}
+                  }
+                );
+              }}
+            >
+              {children}
+            </Modal>
+          ) : null}
+        </ModalContainer>
+      </ThemeProvider>
     );
   }
 }
 
-export default withTheme(ExportVideoModal);
+export default ExportVideoModal;

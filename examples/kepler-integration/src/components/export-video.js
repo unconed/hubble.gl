@@ -79,7 +79,7 @@ class ExportVideo extends Component {
   render() {
     return (
       <div>
-        <ExportVideoModal isOpen={this.state.isOpen}>
+        <ExportVideoModal isOpen={this.state.isOpen} theme={this.props.theme}>
           <ExportVideoPanelContainer handleClose={this.handleClose} mapData={this.props.mapData} />
         </ExportVideoModal>
         <h1>
